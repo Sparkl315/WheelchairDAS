@@ -1,4 +1,5 @@
 /* joy2motor v2
+ * Joystick to Motor Control Module
  * Updated on 16 June 2023
  */
 #include <Wire.h>
