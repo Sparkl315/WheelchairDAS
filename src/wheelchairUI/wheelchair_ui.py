@@ -2,16 +2,26 @@ import tkinter as tk
 
 BUFFER = 100
 
+class images:   # Image class containing image paths
+    wheelchair          = "images/wheelchair.png"
+    left_middle_red     = "images/left middle red.png"
+    left_middle_green   = "images/left middle green.png"
+    right_middle_red    = "images/right middle red.png"
+    right_middle_green  = "images/right middle green.png"
+
+
 def close_window():
     root.destroy()
+
+def change_image(image):
+    return tk.PhotoImage(file=image)
 
 root = tk.Tk()
 root.attributes("-fullscreen", True)
 
 
 # Load the first image
-image_path = "wheelchair.png"  # Replace with the actual path to your image
-photo = tk.PhotoImage(file=image_path)
+photo = tk.PhotoImage(file=images.wheelchair)
 
 # Create a label with the image
 image_label = tk.Label(root, image=photo)
@@ -19,8 +29,7 @@ image_label.pack(side=tk.LEFT)
 image_label.place(relx=0.2, rely=0.2)
 
 # Load the second image
-image_path2 = "left middle green.png"  # Replace with the actual path to your image
-photo2 = tk.PhotoImage(file=image_path2)
+photo2 = tk.PhotoImage(file=images.left_middle_green)
 
 # Create a label with the image
 image_label2 = tk.Label(root, image=photo2)
@@ -28,8 +37,7 @@ image_label2.pack(side=tk.LEFT)
 image_label2.place(relx=0.146, rely=0.4)
 
 # Load the second image
-image_path3 = "right middle green.png"  # Replace with the actual path to your image
-photo3 = tk.PhotoImage(file=image_path3)
+photo3 = tk.PhotoImage(file=images.right_middle_green)
 
 # Create a label with the image
 image_label3 = tk.Label(root, image=photo3)
