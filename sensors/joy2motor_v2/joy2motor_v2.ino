@@ -1,4 +1,6 @@
-
+/* joy2motor v2
+ * Updated on 16 June 2023
+ */
 #include <Wire.h>
 
 #define pinA A0
