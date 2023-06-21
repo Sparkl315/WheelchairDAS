@@ -15,7 +15,7 @@ driver-assistance system for wheelchair
   - [ ] motor interruption
   - [x] Ultrasound
   - [ ] Stereo Camera
-  - [ ] IR sensor
+  - [x] IR sensor
   - [ ] Main control w/ ROS
   - [ ] Display UI
 - [ ] Miscellaneous
