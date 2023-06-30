@@ -1,6 +1,6 @@
 import tkinter as tk
 
-BUFFER = 8
+BUFFER = BUFFER2 = BUFFER3 = BUFFER4 = BUFFER5 = BUFFER6 = 2
 
 class images:   # Image class containing image paths
     wheelchair          = "images/wheelchair.png"          #image_label
@@ -8,19 +8,19 @@ class images:   # Image class containing image paths
     left_middle_green   = "images/left middle green.png"   #image_label3
     left_down_green     = "images/left down green.png"     #image_label4
     right_down_green    = "images/right down green.png"    #image_label5
-    right_middle_green  = "images/left middle green.png"   #image_label6
+    right_middle_green  = "images/right middle green.png"  #image_label6
     right_up_green      = "images/right up green.png"      #image_label7
     left_up_yellow      = "images/left up yellow.png"      #image_label8
     left_middle_yellow  = "images/left middle yellow.png"  #image_label9
     left_down_yellow    = "images/left down yellow.png"    #image_label10
     right_down_yellow   = "images/right down yellow.png"   #image_label11
-    right_middle_yellow = "images/left middle yellow.png"  #image_label12
+    right_middle_yellow = "images/right middle yellow.png"  #image_label12
     right_up_yellow     = "images/right up yellow.png"     #image_label13
     left_up_red         = "images/left up red.png"         #image_label14
     left_middle_red     = "images/left middle red.png"     #image_label5
     left_down_red       = "images/left down red.png"       #image_label6
     right_down_red      = "images/right down red.png"      #image_label7
-    right_middle_red    = "images/left middle red.png"     #image_label18
+    right_middle_red    = "images/right middle red.png"     #image_label18
     right_up_red        = "images/right up red.png"        #image_label19
 
 
@@ -37,76 +37,77 @@ def change_left_up():
     if BUFFER < 5:
      # Hide the green image and show the yellow image
         image_label2.place_forget()
-        image_label14.place(relx=0.146, rely=0.4)
+        image_label14.place(relx=0.12, rely=0.1)
 
     if 5 <= BUFFER <= 10:
      # Hide the green image and show the red image
         image_label2.place_forget()
-        image_label8.place(relx=0.1, rely=0.1)
+        image_label8.place(relx=0.12, rely=0.1)
 
 def change_left_middle():
-    if BUFFER < 5:
+    if BUFFER2 < 5:
      # Hide the green image and show the yellow image
         image_label3.place_forget()
-        image_label15.place(relx=0.1, rely=0.33)
+        image_label15.place(relx=0.11, rely=0.32)
 
-    if 5 <= BUFFER <= 10:
+    if 5 <= BUFFER2 <= 10:
      # Hide the green image and show the red image
         image_label3.place_forget()
-        image_label9.place(relx=0.125, rely=0.33)
+        image_label9.place(relx=0.11, rely=0.32)
 
 
 def change_left_down():
-    if BUFFER < 5:
+    if BUFFER3 < 5:
      # Hide the green image and show the yellow image
         image_label4.place_forget()
-        image_label16.place(relx=0.11, rely=0.7)
+        image_label16.place(relx=0.12, rely=0.7)
 
-    if 5 <= BUFFER <= 10:
+    if 5 <= BUFFER3 <= 10:
      # Hide the green image and show the red image
         image_label4.place_forget()
-        image_label10.place(relx=0.11, rely=0.7)
+        image_label10.place(relx=0.12, rely=0.7)
 
 
 def change_right_down():
-    if BUFFER < 5:
+    if BUFFER4 < 5:
      # Hide the green image and show the yellow image
         image_label5.place_forget()
-        image_label17.place(relx=0.42, rely=0.7)
+        image_label17.place(relx=0.425, rely=0.7)
 
-    if 5 <= BUFFER <= 10:
+    if 5 <= BUFFER4 <= 10:
      # Hide the green image and show the red image
         image_label5.place_forget()
-        image_label11.place(relx=0.42, rely=0.7)
+        image_label11.place(relx=0.425, rely=0.7)
 
 
 def change_right_middle():
-    if BUFFER < 5:
+    if BUFFER5 < 5:
      # Hide the green image and show the yellow image
         image_label6.place_forget()
-        image_label18.place(relx=0.485, rely=0.33)
+        image_label18.place(relx=0.435, rely=0.32)
 
-    if 5 <= BUFFER <= 10:
+    if 5 <= BUFFER5 <= 10:
      # Hide the green image and show the red image
         image_label6.place_forget()
-        image_label12.place(relx=0.485, rely=0.33)
+        image_label12.place(relx=0.435, rely=0.32)
 
 
 def change_right_up():
-    if BUFFER < 5:
+    if BUFFER6 < 5:
      # Hide the green image and show the yellow image
         image_label7.place_forget()
-        image_label19.place(relx=0.42, rely=0.1)
+        image_label19.place(relx=0.422, rely=0.1)
 
-    if 5 <= BUFFER <= 10:
+    if 5 <= BUFFER6 <= 10:
      # Hide the green image and show the red image
         image_label7.place_forget()
-        image_label13.place(relx=0.42, rely=0.1)
+        image_label13.place(relx=0.422, rely=0.1)
 
 
 root = tk.Tk()
 root.attributes("-fullscreen", True)
-
+# set background color to white
+root.configure(bg="#ffffff") 
 
 # Load the wheeelchair image
 photo = tk.PhotoImage(file=images.wheelchair)
@@ -120,37 +121,37 @@ image_label.place(relx=0.2, rely=0.2)
 photo2 = tk.PhotoImage(file=images.left_up_green)
 image_label2 = tk.Label(root, image=photo2)
 image_label2.pack(side=tk.LEFT)
-image_label2.place(relx=0.1, rely=0.1)
+image_label2.place(relx=0.12, rely=0.1)
 
 # Load left middle green image
 photo3 = tk.PhotoImage(file=images.left_middle_green)
 image_label3 = tk.Label(root, image=photo3)
 image_label3.pack(side=tk.LEFT)
-image_label3.place(relx=0.095, rely=0.33)
+image_label3.place(relx=0.11, rely=0.32)
 
 # Load the left down green image
 photo4 = tk.PhotoImage(file=images.left_down_green)
 image_label4 = tk.Label(root, image=photo4)
 image_label4.pack(side=tk.LEFT)
-image_label4.place(relx=0.11, rely=0.7)
+image_label4.place(relx=0.12, rely=0.7)
 
 # Load the right down green image
 photo5 = tk.PhotoImage(file=images.right_down_green)
 image_label5 = tk.Label(root, image=photo5)
 image_label5.pack(side=tk.LEFT)
-image_label5.place(relx=0.42, rely=0.7)
+image_label5.place(relx=0.425, rely=0.7)
 
 # Load the right middle green image
-photo6 = tk.PhotoImage(file=images.left_middle_green)
+photo6 = tk.PhotoImage(file=images.right_middle_green)
 image_label6 = tk.Label(root, image=photo6)
 image_label6.pack(side=tk.LEFT)
-image_label6.place(relx=0.485, rely=0.33)
+image_label6.place(relx=0.435, rely=0.32)
 
 # Load the right up green image
 photo7 = tk.PhotoImage(file=images.right_up_green)
 image_label7 = tk.Label(root, image=photo7)
 image_label7.pack(side=tk.LEFT)
-image_label7.place(relx=0.42, rely=0.1)
+image_label7.place(relx=0.422, rely=0.1)
 
 # Load the left up yellow image
 photo8 = tk.PhotoImage(file=images.left_up_yellow)
@@ -158,7 +159,7 @@ image_label8 = tk.Label(root, image=photo8)
 image_label8.place_forget()
 
 # Load the left middle yellow image
-photo9 = tk.PhotoImage(file=images.left_middle_yellow)
+photo9 = tk.PhotoImage(file=images.right_middle_yellow)
 image_label9 = tk.Label(root, image=photo9)
 image_label9.place_forget()
 
@@ -203,7 +204,7 @@ image_label17 = tk.Label(root, image=photo17)
 image_label17.place_forget()
 
 # Load right middle red image
-photo18 = tk.PhotoImage(file=images.left_middle_red)
+photo18 = tk.PhotoImage(file=images.right_middle_red)
 image_label18 = tk.Label(root, image=photo18)
 image_label18.place_forget()
 
@@ -225,4 +226,5 @@ root.after(1000, change_right_up)
 close_button = tk.Button(root, text="X", command= close_window, font=("Arial", 24), padx=10, pady=5)
 close_button.pack(side= tk.TOP, anchor=tk.NE)
 
-root.mainloop()
+if __name__ == "__main__":
+    root.mainloop()
