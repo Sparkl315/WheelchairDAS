@@ -1,8 +1,8 @@
 #include <NewPing.h>
 #include <string.h>
 
-#define TOTAL_SONAR 4
-#define SONAR_LIMIT 0.8
+/* Define All Necessary Pins */
+#define TOTAL_SONAR 6
 #define ECHO_PIN     2
 #define TRIGGER_PIN  3
 #define ECHO_PIN_2     4
@@ -11,18 +11,28 @@
 #define TRIGGER_PIN_3  7
 #define ECHO_PIN_4     8
 #define TRIGGER_PIN_4  9
-#define MAX_DISTANCE 200 // Maximum distance we want to measure (in centimeters).
+#define ECHO_PIN_5     10
+#define TRIGGER_PIN_5  11
+#define ECHO_PIN_6     12
+#define TRIGGER_PIN_6  13
+
+/* Ultrasound Constants */
+// Range
+#define SONAR_LIMIT    0.8                        // Minimum distance (in centimeters)
+#define MAX_DISTANCE   200                        // Maximum distance (in centimeters)
+// Calibration
+#define TEMP           25.5                       // Temperature calibration constant
+#define CALI_FACTOR    sqrt(1+TEMP/273.15)/60.368 // Speed of sound calculation based on temperature
 
 
 float storePast[TOTAL_SONAR];
 float storeCur[TOTAL_SONAR];
-float temp = 25.5; // Temperature in Celsius (this value would probably come from a temperature sensor).
-float factor = sqrt(1 + temp / 273.15) / 60.368; // Speed of sound calculation based on temperature.
 
-NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
-NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
-NewPing sonar3(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
-NewPing sonar4(TRIGGER_PIN_4, ECHO_PIN_4, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+/* Setup NewPing */
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
+NewPing sonar3(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE);
+NewPing sonar4(TRIGGER_PIN_4, ECHO_PIN_4, MAX_DISTANCE); 
 
 
 void storage(float data, int data_id) {
@@ -59,25 +69,25 @@ void setup() {
 void loop() {
   hold();
 
-  float distance = (float)sonar.ping_cm() * factor; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  float distance = (float)sonar.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
   distance = filter(distance, 0);
   // distance *= 0.01;
 
   hold();
   
-  float distance2 = (float)sonar2.ping_cm() * factor; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  float distance2 = (float)sonar2.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
   distance2 = filter(distance2, 1);
   // distance2 *= 0.01;
 
   hold();
 
-  float distance3 = (float)sonar3.ping_cm() * factor; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  float distance3 = (float)sonar3.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
   distance3 = filter(distance3, 2);
   // distance3 *= 0.01;
 
   hold();
 
-  float distance4 = (float)sonar4.ping_cm() * factor; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  float distance4 = (float)sonar4.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
   distance4 = filter(distance4, 3);
   // distance4 *= 0.01;
   
