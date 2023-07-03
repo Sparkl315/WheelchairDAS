@@ -18,13 +18,12 @@
 
 /* Ultrasound Constants */
 // Range
-#define SONAR_LIMIT    0.8                        // Minimum distance (in centimeters)
-#define MAX_DISTANCE   200                        // Maximum distance (in centimeters)
+#define SONAR_LIMIT    0.8                        // User Defined Maximum distance (in meters)
+#define MAX_DISTANCE   200                        // Hardware Maximum distance (in centimeters) FOR REFERENCE
 // Calibration
 #define TEMP           25.5                       // Temperature calibration constant
 #define CALI_FACTOR    sqrt(1+TEMP/273.15)/60.368 // Speed of sound calculation based on temperature
-
-
+// Variable Storage
 float storePast[TOTAL_SONAR];
 float storeCur[TOTAL_SONAR];
 
@@ -33,12 +32,15 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
 NewPing sonar3(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE);
 NewPing sonar4(TRIGGER_PIN_4, ECHO_PIN_4, MAX_DISTANCE); 
+NewPing sonar5(TRIGGER_PIN_5, ECHO_PIN_5, MAX_DISTANCE); 
+NewPing sonar6(TRIGGER_PIN_6, ECHO_PIN_6, MAX_DISTANCE); 
 
 
 void storage(float data, int data_id) {
   storePast[data_id] = data;
 }
 
+// Remove data higher than user defined maximum
 float filter(float data, int data_id) {
   float tmp = data;
   bool storage_bool = true;
@@ -49,13 +51,13 @@ float filter(float data, int data_id) {
     tmp = storePast[data_id];
     storage_bool = false;
   }
-  if (storage_bool == true) {
+  if (storage_bool == true) { // Save the data if not 0
     storage(tmp, data_id);    
   }
   return tmp;
 }
 
-void hold() {
+void hold() {  // Delay Function
   delay(30);
 }
 
@@ -90,9 +92,22 @@ void loop() {
   float distance4 = (float)sonar4.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
   distance4 = filter(distance4, 3);
   // distance4 *= 0.01;
-  
-  String distString = String(distance) + " " + String(distance2) + " " + String(distance3) + " " + String(distance4) + "\n";
 
+  hold();
+
+  float distance5 = (float)sonar5.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  distance5 = filter(distance5, 3);
+  // distance5 *= 0.01;
+  
+  hold();
+
+  float distance6 = (float)sonar6.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
+  distance6 = filter(distance6, 3);
+  // distance6 *= 0.01;
+  
+  String distString = String(distance) + " " + String(distance2) + " " + String(distance3) + " " + String(distance4) + " " + String(distance5) + " " + String(distance6) + "\n";
+
+  // Send data through serial port
   Serial.write(distString.c_str());
   // Serial.print("Distance: ");
   // Serial.print(distance);
