@@ -1,10 +1,16 @@
+/**
+ * @name      Side Obstacle Detection Module
+ * @brief     Detect Obstacle with 6 x HC-SR04 Ultrasound module 
+ *            Requires:   NewPing Library (by Tim Eckel)
+ */
+
 #include <NewPing.h>
 #include <string.h>
 
+#define TOTAL_SONAR    6
 /* Define All Necessary Pins */
-#define TOTAL_SONAR 6
-#define ECHO_PIN     2
-#define TRIGGER_PIN  3
+#define ECHO_PIN_1     2
+#define TRIGGER_PIN_1  3
 #define ECHO_PIN_2     4
 #define TRIGGER_PIN_2  5
 #define ECHO_PIN_3     6
@@ -23,24 +29,33 @@
 // Calibration
 #define TEMP           25.5                       // Temperature calibration constant
 #define CALI_FACTOR    sqrt(1+TEMP/273.15)/60.368 // Speed of sound calculation based on temperature
-// Variable Storage
+
+// Variables
+float distance[TOTAL_SONAR];
 float storePast[TOTAL_SONAR];
 float storeCur[TOTAL_SONAR];
 
-/* Setup NewPing */
-NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
-NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
-NewPing sonar3(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE);
-NewPing sonar4(TRIGGER_PIN_4, ECHO_PIN_4, MAX_DISTANCE); 
-NewPing sonar5(TRIGGER_PIN_5, ECHO_PIN_5, MAX_DISTANCE); 
-NewPing sonar6(TRIGGER_PIN_6, ECHO_PIN_6, MAX_DISTANCE); 
+String distString = "";    // Distance String Output (via Serial Port)
 
+
+/* Setup NewPing */
+NewPing sonar_array[TOTAL_SONAR] = {
+  NewPing(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE),
+  NewPing(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE),
+  NewPing(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE),
+  NewPing(TRIGGER_PIN_4, ECHO_PIN_4, MAX_DISTANCE),
+  NewPing(TRIGGER_PIN_5, ECHO_PIN_5, MAX_DISTANCE),
+  NewPing(TRIGGER_PIN_6, ECHO_PIN_6, MAX_DISTANCE)
+};
+
+/* Functions */
 
 void storage(float data, int data_id) {
   storePast[data_id] = data;
 }
 
 // Remove data higher than user defined maximum
+// Remove unwanted 0
 float filter(float data, int data_id) {
   float tmp = data;
   bool storage_bool = true;
@@ -57,68 +72,32 @@ float filter(float data, int data_id) {
   return tmp;
 }
 
-void hold() {  // Delay Function
+// Delay For Ultrasound to receive transmitted wave
+void hold() { 
   delay(30);
 }
 
+float get_sonar_value(int sonar_handler_id) {
+  return (float)(sonar_array[sonar_handler_id].ping_cm()) * CALI_FACTOR;
+}
+
+/* Main Workflow */
 void setup() {
-  Serial.begin(9600);
-  for (int i = 0; i < TOTAL_SONAR; i++) {
+  Serial.begin(115200);
+  for (int i = 0; i < TOTAL_SONAR; i++) { // Initialize Storage
     storePast[i] = 0;
   }
 }
 
 void loop() {
-  hold();
+  for (int sid = 0; sid < 6; sid++) {
+    distance[sid] = filter(get_sonar_value(sid), sid);
+    distString += (String(distance[sid]) + " ");
+    hold();
+  }
+  distString += "\n"; // End of Data
 
-  float distance = (float)sonar.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance = filter(distance, 0);
-  // distance *= 0.01;
-
-  hold();
-  
-  float distance2 = (float)sonar2.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance2 = filter(distance2, 1);
-  // distance2 *= 0.01;
-
-  hold();
-
-  float distance3 = (float)sonar3.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance3 = filter(distance3, 2);
-  // distance3 *= 0.01;
-
-  hold();
-
-  float distance4 = (float)sonar4.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance4 = filter(distance4, 3);
-  // distance4 *= 0.01;
-
-  hold();
-
-  float distance5 = (float)sonar5.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance5 = filter(distance5, 3);
-  // distance5 *= 0.01;
-  
-  hold();
-
-  float distance6 = (float)sonar6.ping_cm() * CALI_FACTOR; // Send ping, get distance in cm and print result (0 = outside set distance range)
-  distance6 = filter(distance6, 3);
-  // distance6 *= 0.01;
-  
-  String distString = String(distance) + " " + String(distance2) + " " + String(distance3) + " " + String(distance4) + " " + String(distance5) + " " + String(distance6) + "\n";
-
-  // Send data through serial port
+  // Send Distance data through serial port
   Serial.write(distString.c_str());
-  // Serial.print("Distance: ");
-  // Serial.print(distance);
-  // // Serial.print("m");
-  // Serial.print(" ");
-  // Serial.print(distance2);
-  // // Serial.print("m");
-  // Serial.print(" ");
-  // Serial.print(distance3);
-  // // Serial.print("m");
-  // Serial.print(" ");
-  // Serial.println(distance4);
-  // // Serial.println("m");
+  distString = "";  // reset Output String
 }
