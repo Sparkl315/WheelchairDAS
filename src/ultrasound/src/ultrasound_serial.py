@@ -4,7 +4,7 @@ import serial
 from std_msgs.msg import Float64MultiArray
 
 PORT_ADDR   = "/dev/ttyUSB0"
-TOTAL_SONAR = 4
+TOTAL_SONAR = 6
 
 
 class sonar2ros:
