@@ -1,5 +1,7 @@
 # WheelchairDAS
 
+eth0 169.254.53.227
+
 **TODO**
 - [x] Finalize design on sensor placement
   - [x] Check IR sensor availablility on wheelchair
@@ -25,7 +27,7 @@ Develop an accurate & effective system while maintaining the cost
 ## System Overview
 ### Main Control Unit
  - **Raspberry Pi 4B**
- - Ubuntu OS & Robot Operating System (ROS (Noetic))
+ - Raspberry Pi OS & Robot Operating System (ROS (Noetic))
 ### Rear & Side Obstacle Detection
  - 6 Ultrasound (HC-SR04) for Side Obstable Detection
  - Stereo Camera with Depth Sensing for Rear Obstacle Detection
