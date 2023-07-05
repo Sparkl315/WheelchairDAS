@@ -1,6 +1,7 @@
 # WheelchairDAS
 
 daspi : daspi.local
+
 eth0  : 169.254.53.227
 
 **TODO**
