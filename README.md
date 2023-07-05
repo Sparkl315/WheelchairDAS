@@ -6,19 +6,17 @@ eth0 169.254.53.227
 - [x] Finalize design on sensor placement
   - [x] Check IR sensor availablility on wheelchair
   - [x] Placement & Wiring of sensor modules
-- [ ] Rack Design (with waterproof & suspension)
-  - [ ] Ultrasound sensors
-  - [ ] Stereo camera
-  - [ ] Arduino
-  - [ ] Rasperry Pi & Monitor
+- [x] Rack Design (with waterproof & suspension)
+  - [x] Ultrasound sensors
+  - [x] Stereo camera
+  - [x] Arduino
+  - [x] Rasperry Pi & Monitor
 - [ ] Coding
   - [x] motor interruption
   - [x] Ultrasound
   - [ ] Stereo Camera
   - [ ] Main control w/ ROS
   - [ ] Display UI
-- [ ] Miscellaneous
-  - [ ] Find Charger for wheelchair battery
 
 # **Driver Assistance System for Wheelchair**
 ## Target
