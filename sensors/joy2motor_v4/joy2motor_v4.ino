@@ -94,8 +94,8 @@ void Val_Output() {
   JoyOutput[1] = JoyInput[1]/4;
   
   // AnalogWrite to Channel A & B PWM pinout
-  AnalogWrite(pinAout, JoyOutput[0]);
-  AnalogWrite(pinBout, JoyOutput[1]);
+  analogWrite(pinAout, JoyOutput[0]);
+  analogWrite(pinBout, JoyOutput[1]);
 }
 
 /* Main Workflow */
@@ -116,4 +116,7 @@ void loop() {
   Val_Get();
   Val_Manipulate();
   Val_Output();
+  Serial.print(JoyOutput[0]);
+  Serial.print(" ");
+  Serial.println(JoyOutput[1]);
 }
