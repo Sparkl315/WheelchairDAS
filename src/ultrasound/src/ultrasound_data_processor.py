@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float64MultiArray
+import serial
+from std_msgs.msg import Float64MultiArray, Int32MultiArray
+
+# Start Serial Port Connection
+ser = serial.Serial('/dev/ttyUSB1', 115200)
 
 AUTO_TUNE_AVAILABLE = True
 Obstacle_Exists = [0, 0, 0, 0 ,0 ,0]    // 0 : Clear , 1 : Obstacle Exists   // Need Auto Tuning
@@ -20,9 +24,17 @@ def callback(data):
         else:
             Obstacle_exists[i] = 0
             Output_State[i] = 0
+            
+    OE_String = "".join(str(x) for x in Obstacle_Exists)
+    ser.write(OE_String.encode())
+    
+    state_msg = Int32MultiArray(data=Output_State)
+    state_pub.publish(state_msg)
 
 def listener():
+    global state_pub
     rospy.init_node('ultrasound_listener', anonymous=True)
+    state_pub = rospy.Publisher('/sensor/obstacle_state', Int32MultiArray, queue_size=10)
     rospy.Subscriber("/sensor/ultrasound", Float64MultiArray, callback)
     rospy.spin()
 
