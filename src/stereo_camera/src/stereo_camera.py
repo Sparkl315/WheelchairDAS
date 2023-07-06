@@ -29,14 +29,17 @@ class stereo_camera:
             self.imgL_gray = cv2.cvtColor(self.imgL_color,cv2.COLOR_BGR2GRAY)
             self.imgR_gray = cv2.cvtColor(self.imgR_color,cv2.COLOR_BGR2GRAY)
 
-    def show_image(self, image):
-        cv2.imshow("image", image)
+    def show_image(self, name, image):
+        cv2.imshow(name, image)
 
 if __name__ == "__main__":
-    stereo_cam = stereo_camera
+    stereo_cam = stereo_camera()
+    stereo_cam.start_capture(CamLID = 0, CamRID = 2)
+
     while (stereo_cam.CAMERA_STARTED):
         stereo_cam.camera_read()
-        stereo_cam.show_image(stereo_cam.imgL_color)
+        stereo_cam.show_image("imgL", stereo_cam.imgL_color)
+        stereo_cam.show_image("imgR", stereo_cam.imgR_color)
         if cv2.waitKey(1) == ord('q'):
             break
     else:
