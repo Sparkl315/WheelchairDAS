@@ -44,4 +44,51 @@ if __name__ == "__main__":
             break
     else:
         stereo_cam.start_capture(CamLID = 0, CamRID = 2)
-    
+
+# #!/usr/bin/env python
+
+# import rospy
+# from sensor_msgs.msg import Image
+# from cv_bridge import CvBridge
+# import cv2
+
+# def publish_camera_image():
+#     # Initialize ROS node
+#     rospy.init_node('camera_publisher', anonymous=True)
+
+#     # Initialize the publisher to publish images to the "/sensor/camera" topic
+#     image_pub = rospy.Publisher("/sensor/camera", Image, queue_size=10)
+
+#     # Create a CvBridge object to convert between OpenCV images and ROS images
+#     bridge = CvBridge()
+
+#     # Initialize the camera capture object
+#     cap = cv2.VideoCapture(0)
+
+#     # Set the camera resolution
+#     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+#     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+#     # Loop to capture and publish images
+#     while not rospy.is_shutdown():
+#         # Capture a frame from the camera
+#         ret, frame = cap.read()
+
+#         if ret:
+#             # Convert the OpenCV image to a ROS image message
+#             ros_image = bridge.cv2_to_imgmsg(frame, "bgr8")
+
+#             # Publish the ROS image message to the "/sensor/camera" topic
+#             image_pub.publish(ros_image)
+
+#         # Wait for a small amount of time
+#         rospy.sleep(0.1)
+
+#     # Release the camera capture object
+#     cap.release()
+
+# if __name__ == '__main__':
+#     try:
+#         publish_camera_image()
+#     except rospy.ROSInterruptException:
+#         pass
