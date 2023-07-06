@@ -21,7 +21,7 @@ class sonar2ros:
 class sonar:
     def port_setup(self, addr = PORT_ADDR):
         self.sonar_data = [0 for i in range(TOTAL_SONAR)]
-        self.ser = serial.Serial(addr)  # open serial port
+        self.ser = serial.Serial(addr, baudrate=115200)  # open serial port
         # print(self.ser.name)         # check which port was really used
 
     def port_close(self):
@@ -32,13 +32,14 @@ class sonar:
             data = self.ser.readline().decode('utf-8')    # reading bytes from serial port
             self.data_proc(str(data))
         except Exception as e:
-            print("%s:%s"%(e, data))
+            print("[read_data()] %s:%s"%(e, data))
 
     def data_proc(self, inp_data:str):
         data = inp_data.strip("\n").split(" ")
         try:
             for i, e in enumerate(data):
-                self.sonar_data[i] = float(e)
+                if (e != ""):
+                    self.sonar_data[i] = float(e)
         except IndexError:
             print("Data length doesn't match with designated length: %s"%(inp_data))
 
@@ -48,10 +49,11 @@ if __name__ == "__main__":
     # === main ===
     s.port_setup()
     s2r.ros_setup()
+    print("start")
     while not rospy.is_shutdown():
         try:
             s.read_data()
-            print(s.sonar_data)
+            # print(s.sonar_data)
             s2r.publish(s.sonar_data)
         except Exception as e:
             print(e)
