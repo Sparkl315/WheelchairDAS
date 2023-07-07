@@ -18,6 +18,8 @@ int     JoyOutput[2];
 
 /* Obstacle Detector Variables */
 #define POSIS      6    // Positions (LF, L, LB, RB, R, RF)
+#define CHA_OFFSET 20   // Channel A Voltage Offset (Pull-up ~0.4V more)
+#define CHB_OFFSET 4    // Channel B Voltage Offset (Pull-up ~0.1V more)
 //  POSITIONS - ARRAY ID
 #define LF         0
 #define L          1
@@ -90,8 +92,12 @@ void Val_Manipulate() {
 
 void Val_Output() {
   // Convert Resolution of ADC Input to PWM Output  (1024 to 256)
-  JoyOutput[0] = JoyInput[0]/4;
-  JoyOutput[1] = JoyInput[1]/4;
+  JoyOutput[0] = JoyInput[0]/4 + CHA_OFFSET;
+  JoyOutput[1] = JoyInput[1]/4 + CHB_OFFSET;
+
+  // Limit Output PWM to 255
+  if (JoyOutput[0] >= 255) {JoyOutput[0] = 255;}
+  if (JoyOutput[1] >= 255) {JoyOutput[1] = 255;}
   
   // AnalogWrite to Channel A & B PWM pinout
   analogWrite(pinAout, JoyOutput[0]);
