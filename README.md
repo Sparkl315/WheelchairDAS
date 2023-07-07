@@ -4,22 +4,6 @@ daspi : daspi.local
 
 eth0  : 169.254.53.227
 
-**TODO**
-- [x] Finalize design on sensor placement
-  - [x] Check IR sensor availablility on wheelchair
-  - [x] Placement & Wiring of sensor modules
-- [x] Rack Design (with waterproof & suspension)
-  - [x] Ultrasound sensors
-  - [x] Stereo camera
-  - [x] Arduino
-  - [x] Rasperry Pi & Monitor
-- [ ] Coding
-  - [x] motor interruption
-  - [x] Ultrasound
-  - [ ] Stereo Camera
-  - [ ] Main control w/ ROS
-  - [ ] Display UI
-
 # **Driver Assistance System for Wheelchair**
 ## Target
 Develop an accurate & effective system while maintaining the cost
