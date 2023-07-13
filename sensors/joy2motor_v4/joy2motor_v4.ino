@@ -54,10 +54,14 @@ void processIncomingByte (const byte inByte) {
   }  // end of switch
 }
 
-void process_data(const char * input) {
-  for (int i; i < POSIS; i++) {
-    if(input[i] == "1") Obstacle_Exist[i] = true;
-    if(input[i] == "0") Obstacle_Exist[i] = false;
+void process_data(const char* input) {
+  for (int i = 0; i < POSIS; i++) {
+    Serial.print(input[i]);
+    if (input[i] == '1') {
+      Obstacle_Exist[i] = true;
+    } else if (input[i] == '0') {
+      Obstacle_Exist[i] = false;
+    }
   }
 }
 
@@ -71,22 +75,26 @@ void Val_Get() {
 // Change joystick value if obstacle exists
 void Val_Manipulate() {
   if(Obstacle_Exist[LF]) {
-
+    if(JoyInput[0] > 500) JoyInput[0] = 500;
+    if(JoyInput[1] > 500) JoyInput[1] = 500;
   }
   if(Obstacle_Exist[L]) {
-
+    if(JoyInput[1] > 500) JoyInput[1] = 500;
   }
   if(Obstacle_Exist[LB]) {
-
+    if(JoyInput[0] < 500) JoyInput[0] = 500;
+    if(JoyInput[1] > 500) JoyInput[1] = 500;
   }
   if(Obstacle_Exist[RB]) {
-
+    if(JoyInput[0] < 500) JoyInput[0] = 500;
+    if(JoyInput[1] < 500) JoyInput[1] = 500;
   }
   if(Obstacle_Exist[R]) {
-
+    if(JoyInput[1] < 500) JoyInput[1] = 500;
   }
   if(Obstacle_Exist[RF]) {
-
+    if(JoyInput[0] > 500) JoyInput[0] = 500;
+    if(JoyInput[1] < 500) JoyInput[1] = 500;
   }
 }
 
@@ -122,7 +130,7 @@ void loop() {
   Val_Get();
   Val_Manipulate();
   Val_Output();
-  Serial.print(JoyOutput[0]);
-  Serial.print(" ");
-  Serial.println(JoyOutput[1]);
+  // Serial.print(JoyOutput[0]);
+  // Serial.print(" ");
+  // Serial.println(JoyOutput[1]);
 }
