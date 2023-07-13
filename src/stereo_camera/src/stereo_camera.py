@@ -15,14 +15,14 @@ class image2ros:
         self.image_pub = rospy.Publisher("/sensor/camera", Image, queue_size=10)
     
         # Create a CvBridge object to convert between OpenCV images and ROS images
-        bridge = CvBridge()
+        self.bridge = CvBridge()
 
     def publish_image(self, image):
         # Convert the OpenCV image to a ROS image message
-        ros_image = bridge.cv2_to_imgmsg(image, "bgr8")
+        ros_image = self.bridge.cv2_to_imgmsg(image, "bgr8")
 
         # Publish the ROS image message to the "/sensor/camera" topic
-        image_pub.publish(ros_image)
+        self.image_pub.publish(ros_image)
     
 class stereo_camera:
     CAMERA_STARTED = False
@@ -60,7 +60,7 @@ class stereo_camera:
         else:
             return False
 
-    def set_resolution(self, Cam, res_w = 640, res_h = 480):
+    def set_resolution(self, Cam, res_w = 480, res_h = 360):
         Cam.set(cv2.CAP_PROP_FRAME_WIDTH, res_w)
         Cam.set(cv2.CAP_PROP_FRAME_HEIGHT, res_h)
         
@@ -74,10 +74,15 @@ if __name__ == "__main__":
     while (stereo_cam.CAMERA_STARTED):
         if (stereo_cam.camera_read()):
             if not (rospy.is_shutdown()):
-                img2ros.publish_image(stereo_cam.imgL_color)
+                try:
+                    img2ros.publish_image(stereo_cam.imgL_color)
+                except Exception as e:
+                    print("%s", e)
+                    break
             else:
                 print("ROS Not Started, No Image Sent.")
-        # stereo_cam.show_image("imgL", stereo_cam.imgL_color)
+                break
+        stereo_cam.show_image("imgL", stereo_cam.imgL_color)
         # stereo_cam.show_image("imgR", stereo_cam.imgR_color)
         if cv2.waitKey(1) == ord('q'):
             break
