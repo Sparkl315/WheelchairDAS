@@ -1,9 +1,5 @@
 # WheelchairDAS
 
-daspi : daspi.local
-
-eth0  : 169.254.53.227
-
 # **Driver Assistance System for Wheelchair**
 ## Target
 Develop an accurate & effective system while maintaining the cost
