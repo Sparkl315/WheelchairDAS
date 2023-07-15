@@ -6,7 +6,7 @@ Develop an accurate & effective system while maintaining the cost
 
 ## System Overview
 
-![System Overview](https://github.com/Sparkl315/WheelchairDAS/blob/e81ffbe4f7ba9f9f652deeda80ca54335e76def7/documents/diagrams/wheelchairDAS_overview.pdf)
+![System Overview](https://github.com/Sparkl315/WheelchairDAS/blob/aabb8b16f527155dbd48046f216356d7342fad94/documents/diagrams/wheelchairDAS_overview.png)
 
 ### Main Control Unit
  - **Raspberry Pi 4B**
@@ -29,7 +29,7 @@ Develop an accurate & effective system while maintaining the cost
 
 ![Ulrasound Placement](https://github.com/Sparkl315/WheelchairDAS/blob/e81ffbe4f7ba9f9f652deeda80ca54335e76def7/documents/diagrams/Obstacle_Detection/Side_obstacle_detection_placement.jpeg)
 
-![Flowchart](https://github.com/Sparkl315/WheelchairDAS/blob/e81ffbe4f7ba9f9f652deeda80ca54335e76def7/documents/diagrams/Obstacle_Detection/ultrasound%20detection%20flowchart.pdf)
+![Flowchart](https://github.com/Sparkl315/WheelchairDAS/blob/aabb8b16f527155dbd48046f216356d7342fad94/documents/diagrams/Obstacle_Detection/ultrasound%20detection%20flowchart.png)
 
 **Rear Obstacle Detection**
 
@@ -40,9 +40,9 @@ Develop an accurate & effective system while maintaining the cost
 
 ### Auto Input Tuning
 
-![Flowchart](https://github.com/Sparkl315/WheelchairDAS/blob/e81ffbe4f7ba9f9f652deeda80ca54335e76def7/documents/diagrams/Auto_Input_Tuning/Auto_input_tuning_flowchart.pdf)
+![Flowchart](https://github.com/Sparkl315/WheelchairDAS/blob/aabb8b16f527155dbd48046f216356d7342fad94/documents/diagrams/Auto_Input_Tuning/Auto_input_tuning_flowchart.png)
 
-![Circuit Schematic](https://github.com/Sparkl315/WheelchairDAS/blob/e81ffbe4f7ba9f9f652deeda80ca54335e76def7/documents/schematics/auto_input_tuning_schematic.pdf)
+![Circuit Schematic](https://github.com/Sparkl315/WheelchairDAS/blob/aabb8b16f527155dbd48046f216356d7342fad94/documents/schematics/auto_input_tuning_schematic.png)
 
 > **EXPLANATION**
 > - Joystick Input (MLX90333)
@@ -62,3 +62,5 @@ Develop an accurate & effective system while maintaining the cost
 ### Graphical User Interface
 
 ![User Interface](https://github.com/Sparkl315/WheelchairDAS/blob/cb31a7e01472bf893220d19c017c465a6ef83dc1/documents/diagrams/WheelchairUI/user_interface.png)
+
+![Flowchart](https://github.com/Sparkl315/WheelchairDAS/blob/aabb8b16f527155dbd48046f216356d7342fad94/documents/diagrams/WheelchairUI/wheelchair_ui_flowchart.png)
