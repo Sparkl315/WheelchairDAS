@@ -44,7 +44,7 @@ def change_image(image):
 
 def update_gui():
     listener()
-    root.after(500, update_gui) # call listener after 100 ms
+    root.after(100, update_gui) # call listener after 100 ms
 
 close_button = tk.Button(root, text="X", command= close_window, font=("Arial", 12), padx=10, pady=5)
 close_button.pack(side= tk.TOP, anchor=tk.NE)
