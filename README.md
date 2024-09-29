@@ -1,6 +1,8 @@
 # Project : WheelchairDAS
 
 # **Driver Assistance System for Wheelchair**
+Student Project in 2022 for UG BME Course
+
 ## Target
 Develop an accurate & effective system while maintaining the cost
 
